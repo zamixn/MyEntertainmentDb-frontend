@@ -1,3 +1,12 @@
+Project for university where you have to create a backend API server and a frontend client.
+
+**Backend**
+https://github.com/zamixn/MyEntertainementDb
+
+
+
+### Auto generated readme
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
