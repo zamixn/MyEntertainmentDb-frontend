@@ -2,17 +2,17 @@ import React from 'react';
 import * as Constants from '../Tools/Constants'
 import * as StringFormatter from '../Tools/StringFormatter'
 
-class WatchableListComponent extends React.Component {
+class GameListComponent extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      watchables: []
+      games: []
     }
   }
 
   componentDidMount() {
-    const url = Constants.GAME_LIST_API_URL;
+    const url = Constants.WATCHABLE_LIST_API_URL;
     fetch(url)
       .then(response => {
         if (!response.ok) {
@@ -21,32 +21,32 @@ class WatchableListComponent extends React.Component {
         return response.json();
       })
       .then(result => {
-        this.setState({ watchables: result });
+        this.setState({ games: result });
       })
   }
 
   render() {
     return (
-      <table>
+      <table class="center">
         <thead>
           <tr>
             <th>Title</th>
             <th>ReleaseDate</th>
             <th>Description</th>
-            <th>TimesPlayed</th>
-            <th>LastPlayed</th>
+            <th>TimesSeen</th>
+            <th>LastSeen</th>
             <th>Creator</th>
           </tr>
         </thead>
         <tbody>
-          {this.state.watchables.map(w => (
-            <tr key={w.id}>
-              <td>{w.title}</td>
-              <td>{StringFormatter.formatDate(w.releaseDate)}</td>
-              <td>{w.description}</td>
-              <td>{w.timesPlayed}</td>
-              <td>{StringFormatter.formatDate(w.lastPlayed)}</td>
-              <td>{w.creator}</td>
+          {this.state.games.map(game => (
+            <tr key={game.id}>
+              <td>{game.title}</td>
+              <td>{StringFormatter.formatDate(game.releaseDate)}</td>
+              <td>{game.description}</td>
+              <td>{game.timesSeen}</td>
+              <td>{StringFormatter.formatDate(game.lastSeen)}</td>
+              <td>{game.creator}</td>
             </tr>
           ))}
         </tbody>
@@ -55,4 +55,4 @@ class WatchableListComponent extends React.Component {
   }
 }
 
-export default WatchableListComponent;
+export default GameListComponent;

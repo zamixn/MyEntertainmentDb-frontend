@@ -1,19 +1,22 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-import Home from './pages/Home';
 import Games from './pages/Games';
 import Watchables from './pages/Watchables';
 import Creators from './pages/Creators';
 import User from './pages/User';
+import RegisterPage from './pages/Register';
+import SystemUser from './services/systemuser';
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarFooter } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
-import * as FaIcons from 'react-icons/fa'
 import * as GiIcons from 'react-icons/gi'
 import * as AiIcons from "react-icons/ai";
 import * as Constants from './Tools/Constants'
 
 function App() {
+  if(SystemUser.isLoggedIn())
+    console.log("logged in as: " + SystemUser.getCurrentUser().id);
+  const userLabel = SystemUser.isLoggedIn() ? 'Logged in as: ' + SystemUser.getCurrentUser().username : 'Log in';
   return (
     <div className='main'>
       <Router>
@@ -36,18 +39,20 @@ function App() {
             </Menu>
             <SidebarFooter>
               <Menu iconShape="circle">
-                  <MenuItem>User<Link to={Constants.USER_URL} /></MenuItem>
+                  <MenuItem>{userLabel}<Link to={Constants.USER_URL} /></MenuItem>
+                  <MenuItem>Register<Link to={Constants.REGISTER_URL} /></MenuItem>
               </Menu>
             </SidebarFooter>
           </ProSidebar>
         </div>
         <div className="body">
           <Switch>
-            <Route path='/' exact component={Home} />
+            <Route path='/' exact component={User} />
             <Route path={Constants.GAME_LIST_URL} component={Games} />
             <Route path={Constants.WATCHABLE_LIST_URL} component={Watchables} />
             <Route path={Constants.CREATORS_LIST_URL} component={Creators} />
             <Route path={Constants.USER_URL} component={User} />
+            <Route path={Constants.REGISTER_URL} component={RegisterPage} />
           </Switch>
         </div>
       </Router>

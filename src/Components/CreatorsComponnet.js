@@ -1,6 +1,5 @@
 import React from 'react';
 import * as Constants from '../Tools/Constants'
-import * as StringFormatter from '../Tools/StringFormatter'
 
 class CreatorsListComponent extends React.Component {
   constructor(props) {
