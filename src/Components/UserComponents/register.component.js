@@ -8,7 +8,8 @@ class Register extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            errorMessage: ''
         }
     }
 
@@ -27,6 +28,7 @@ class Register extends React.Component {
             }
         );
 
+        let resStatusCode = 0;
         fetch(Constants.REGISTER_API_URL, {
             method: 'POST',
             headers: {
@@ -34,6 +36,7 @@ class Register extends React.Component {
             },
             body: body
         }).then(function (response) {
+            resStatusCode = response.status;
             if (!response.ok) {
                 throw new Error(response.state);
             }
@@ -44,6 +47,7 @@ class Register extends React.Component {
             window.location.reload(false);
         }).catch(error => {
             console.log(error.message)
+            this.setState({errorMessage: 'Oops, failed to register, try using a different username and password'});
         });
     }
 
@@ -68,7 +72,14 @@ class Register extends React.Component {
                             <tr>
                                 <td> </td>
                                 <td> <button>Register</button> </td>
+                            </tr> 
+                            { /*show error message if it's not empty */}
+                            { this.state.errorMessage &&
+                            <tr>
+                                <td> </td>
+                                <td className='erroMessage'> {this.state.errorMessage} </td>
                             </tr>
+                            }
                         </tbody>
                     </table>
                 </form>

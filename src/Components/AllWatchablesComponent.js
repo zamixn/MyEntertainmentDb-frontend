@@ -2,7 +2,7 @@ import React from 'react';
 import * as Constants from '../Tools/Constants'
 import * as StringFormatter from '../Tools/StringFormatter'
 
-class WatchableListComponent extends React.Component {
+class AllWatchablesListComponent extends React.Component {
   constructor(props) {
     super(props);
 
@@ -12,7 +12,7 @@ class WatchableListComponent extends React.Component {
   }
 
   componentDidMount() {
-    const url = Constants.GAME_LIST_API_URL;
+    const url = Constants.WATCHABLE_LIST_API_URL;
     fetch(url)
       .then(response => {
         if (!response.ok) {
@@ -27,26 +27,26 @@ class WatchableListComponent extends React.Component {
 
   render() {
     return (
-      <table>
+      <table className="center">
         <thead>
           <tr>
             <th>Title</th>
             <th>ReleaseDate</th>
             <th>Description</th>
-            <th>TimesPlayed</th>
-            <th>LastPlayed</th>
+            <th>TimesSeen</th>
+            <th>LastSeen</th>
             <th>Creator</th>
           </tr>
         </thead>
         <tbody>
-          {this.state.watchables.map(w => (
-            <tr key={w.id}>
-              <td>{w.title}</td>
-              <td>{StringFormatter.formatDate(w.releaseDate)}</td>
-              <td>{w.description}</td>
-              <td>{w.timesPlayed}</td>
-              <td>{StringFormatter.formatDate(w.lastPlayed)}</td>
-              <td>{w.creator}</td>
+          {this.state.watchables.map(row => (
+            <tr key={row.id}>
+              <td>{row.title}</td>
+              <td>{StringFormatter.formatDate(row.releaseDate)}</td>
+              <td>{row.description}</td>
+              <td>{row.timesSeen}</td>
+              <td>{StringFormatter.formatDate(row.lastSeen)}</td>
+              <td>{row.creator}</td>
             </tr>
           ))}
         </tbody>
@@ -55,4 +55,4 @@ class WatchableListComponent extends React.Component {
   }
 }
 
-export default WatchableListComponent;
+export default AllWatchablesListComponent;

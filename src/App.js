@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Games from './pages/Games';
 import Watchables from './pages/Watchables';
 import Creators from './pages/Creators';
+import MyGames from './pages/MyGames';
+import MyWatchables from './pages/MyWatchables';
 import User from './pages/User';
 import RegisterPage from './pages/Register';
 import SystemUser from './services/systemuser';
@@ -25,16 +27,15 @@ function App() {
             <Menu iconShape="circle">
               <MenuItem icon={<AiIcons.AiFillHome />}>Dashboard <Link to="/" /> </MenuItem>
               <SubMenu title="Games" icon={<GiIcons.GiGamepad />}>
-                <MenuItem>Games<Link to={Constants.GAME_LIST_URL} /></MenuItem>
-                <MenuItem>Post (TBD)</MenuItem>
+                <MenuItem>Games<Link to={Constants.GAME_LIST_URL} /></MenuItem>                
+                {SystemUser.isLoggedIn() && <MenuItem>My Games<Link to={Constants.MY_GAME_LIST_URL} /></MenuItem>}
               </SubMenu>
               <SubMenu title="Watchables" icon={<GiIcons.GiGamepad />}>
                 <MenuItem>Watchables<Link to={Constants.WATCHABLE_LIST_URL} /></MenuItem>
-                <MenuItem>Post (TBD)</MenuItem>
+                {SystemUser.isLoggedIn() && <MenuItem>My Watchables<Link to={Constants.MY_WATCHABLE_LIST_URL} /></MenuItem>}
               </SubMenu>
               <SubMenu title="Creators" icon={<GiIcons.GiGamepad />}>
                 <MenuItem>Creators<Link to={Constants.CREATORS_LIST_URL} /></MenuItem>
-                <MenuItem>Post (TBD)</MenuItem>
               </SubMenu>
             </Menu>
             <SidebarFooter>
@@ -53,6 +54,8 @@ function App() {
             <Route path={Constants.CREATORS_LIST_URL} component={Creators} />
             <Route path={Constants.USER_URL} component={User} />
             <Route path={Constants.REGISTER_URL} component={RegisterPage} />
+            {SystemUser.isLoggedIn() && <Route path={Constants.MY_GAME_LIST_URL} component={MyGames} />}
+            {SystemUser.isLoggedIn() && <Route path={Constants.MY_WATCHABLE_LIST_URL} component={MyWatchables} />}
           </Switch>
         </div>
       </Router>

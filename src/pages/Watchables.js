@@ -1,11 +1,11 @@
 import React from 'react'
-import WatchablesListComponent from '../Components/WatchablesComponent';
+import AllWatchablesListComponent from '../Components/AllWatchablesComponent';
 
 function Watchables() {
     return (
         <div className='center'>
             <h1>All Watchables</h1>        
-            <WatchablesListComponent></WatchablesListComponent>  
+            <AllWatchablesListComponent type='all'></AllWatchablesListComponent>  
         </div>
     )
 }

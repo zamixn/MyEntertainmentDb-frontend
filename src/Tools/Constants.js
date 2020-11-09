@@ -1,4 +1,5 @@
 
+import SystemUser from '../services/systemuser'
 
 export const GAME_LIST_URL = "/games";
 export const WATCHABLE_LIST_URL = "/watchables";
@@ -6,6 +7,8 @@ export const CREATORS_LIST_URL = "/creators";
 export const USER_URL = "/user"
 export const REGISTER_URL = "/register"
 
+export const MY_GAME_LIST_URL = "/mygames";
+export const MY_WATCHABLE_LIST_URL = "/mywatchables";
 
 
 
@@ -16,6 +19,8 @@ export const GAME_LIST_API_URL = API_URL + GAME_LIST_URL;
 export const WATCHABLE_LIST_API_URL = API_URL + WATCHABLE_LIST_URL;
 export const CREATORS_LIST_API_URL = API_URL + CREATORS_LIST_URL;
 
-
-export const REGISTER_API_URL = API_URL + "/systemusers/register"
-export const LOGIN_API_URL = API_URL + "/systemusers/login"
+export const SYSTEMUSER_API_URL = API_URL + "/systemusers";
+export const REGISTER_API_URL = SYSTEMUSER_API_URL + "/register";
+export const LOGIN_API_URL = SYSTEMUSER_API_URL + "/login";
+export const MY_GAME_LIST_API_URL = SYSTEMUSER_API_URL + "/" + SystemUser.getUserId() + GAME_LIST_URL;
+export const MY_WATCHABLE_LIST_API_URL = SYSTEMUSER_API_URL + "/" + SystemUser.getUserId() + WATCHABLE_LIST_URL;

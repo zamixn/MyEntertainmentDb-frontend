@@ -16,11 +16,27 @@ class SystemUser {
     }
 
     getCurrentUser() {
-        return JSON.parse(localStorage.getItem('user'));
+        if(this.isLoggedIn())
+            return JSON.parse(localStorage.getItem('user')); 
+        return '';     
+    }
+
+    getUserId()
+    {
+        if(this.isLoggedIn())
+            return JSON.parse(localStorage.getItem('user')).id;   
+        return '';     
     }
 
     isLoggedIn() {
         return "user" in localStorage
+    }
+
+    getJWT()
+    {
+        if(this.isLoggedIn())
+            return JSON.parse(localStorage.getItem('user')).token;  
+        return '';     
     }
 
     RoleString(role) {

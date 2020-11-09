@@ -1,52 +1,53 @@
 import React from 'react';
+import systemuser from '../services/systemuser';
 import * as Constants from '../Tools/Constants'
 import * as StringFormatter from '../Tools/StringFormatter'
 
-class GameListComponent extends React.Component {
+class AllGameListComponent extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      games: []
+      games: [],
     }
   }
 
   componentDidMount() {
-    const url = Constants.WATCHABLE_LIST_API_URL;
+    const url = Constants.GAME_LIST_API_URL;
+
     fetch(url)
       .then(response => {
         if (!response.ok) {
           throw new Error(response.state);
         }
         return response.json();
-      })
-      .then(result => {
+      }).then(result => {
         this.setState({ games: result });
-      })
+      }).catch(error => {
+        console.log(error.message)
+    });
   }
 
   render() {
     return (
-      <table className="center">
+      <table>
         <thead>
           <tr>
             <th>Title</th>
             <th>ReleaseDate</th>
-            <th>Description</th>
-            <th>TimesSeen</th>
-            <th>LastSeen</th>
+            <th>TimesPlayed</th>
+            <th>LastPlayed</th>
             <th>Creator</th>
           </tr>
         </thead>
         <tbody>
-          {this.state.games.map(game => (
-            <tr key={game.id}>
-              <td>{game.title}</td>
-              <td>{StringFormatter.formatDate(game.releaseDate)}</td>
-              <td>{game.description}</td>
-              <td>{game.timesSeen}</td>
-              <td>{StringFormatter.formatDate(game.lastSeen)}</td>
-              <td>{game.creator}</td>
+          {this.state.games.map(row => (
+            <tr key={row.id}>
+              <td>{row.title}</td>
+              <td>{StringFormatter.formatDate(row.releaseDate)}</td>
+              <td>{row.timesPlayed}</td>
+              <td>{StringFormatter.formatDate(row.lastPlayed)}</td>
+              <td>{row.creator}</td>
             </tr>
           ))}
         </tbody>
@@ -55,4 +56,4 @@ class GameListComponent extends React.Component {
   }
 }
 
-export default GameListComponent;
+export default AllGameListComponent;

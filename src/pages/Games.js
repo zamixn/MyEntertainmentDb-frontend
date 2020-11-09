@@ -1,11 +1,11 @@
 import React from 'react'
-import GameListComponent from '../Components/GameComponnet';
+import AllGameListComponent from '../Components/AllGameComponet';
 
 function Games() {
     return (
         <div className='center'>
             <h1>All Games</h1>        
-            <GameListComponent></GameListComponent>  
+            <AllGameListComponent type='all'></AllGameListComponent>  
         </div>
     )
 }
