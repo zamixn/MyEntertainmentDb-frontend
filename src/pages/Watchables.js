@@ -3,7 +3,7 @@ import WatchablesListComponent from '../Components/WatchablesComponent';
 
 function Watchables() {
     return (
-        <div class='center'>
+        <div className='center'>
             <h1>All Watchables</h1>        
             <WatchablesListComponent></WatchablesListComponent>  
         </div>

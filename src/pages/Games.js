@@ -3,7 +3,7 @@ import GameListComponent from '../Components/GameComponnet';
 
 function Games() {
     return (
-        <div class='center'>
+        <div className='center'>
             <h1>All Games</h1>        
             <GameListComponent></GameListComponent>  
         </div>

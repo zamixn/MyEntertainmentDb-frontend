@@ -27,7 +27,7 @@ class GameListComponent extends React.Component {
 
   render() {
     return (
-      <table class="center">
+      <table className="center">
         <thead>
           <tr>
             <th>Title</th>

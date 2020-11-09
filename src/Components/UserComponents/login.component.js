@@ -8,7 +8,8 @@ class Login extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            errorMessage: ''
         }
     }
 
@@ -20,7 +21,8 @@ class Login extends React.Component {
                 passwordHash: this.state.password
             }
         );
-
+        
+        let resStatusCode = 0;
         fetch(Constants.LOGIN_API_URL, {
             method: 'POST',
             headers: {
@@ -28,6 +30,7 @@ class Login extends React.Component {
             },
             body: body
         }).then(response => {
+            resStatusCode = response.status;
             if (!response.ok) {
               throw new Error(response.state);
             }
@@ -38,7 +41,14 @@ class Login extends React.Component {
             SystemUser.loginWithUser(result);
             window.location.reload(false);
         }).catch(error => {
-            console.log(error.message)
+            console.log(error.message);
+            switch(resStatusCode){
+                case 400:
+                    this.setState({errorMessage: 'Invalid username or password'});
+                    break;
+                default:
+                    break;
+            }
         });
     }
 
@@ -64,6 +74,13 @@ class Login extends React.Component {
                                 <td> </td>
                                 <td> <button>Login</button> </td>
                             </tr>
+                            {/* only show error message if it's not empty */}
+                            { this.state.errorMessage &&
+                            <tr>
+                                <td> </td>
+                                <td className='erroMessage'> {this.state.errorMessage} </td>
+                            </tr>
+                            }
                         </tbody>
                     </table>
                 </form>
