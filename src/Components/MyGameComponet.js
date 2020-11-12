@@ -37,6 +37,68 @@ class AllGameListComponent extends React.Component {
       });
   }
 
+  UpdateRating(entryRating, newVal){    
+    let e = entryRating.rating;
+    let body = JSON.stringify({
+      "rating": newVal,
+      "entry_id": e.entry_id,
+      "user_id":  e.user_id
+    });
+    let resStatusCode = 0;
+    fetch(Constants.RATEENTRY_API_URL, {
+      method:Constants.METHOD_POST,
+      headers:{
+        ...Constants.AUTH_HEADER, 
+        ...Constants.JSON_CONTENT_TYPE
+      },
+      body:body
+    }).then(response => {
+        resStatusCode = response.status;
+        if (!response.ok) {
+          throw new Error(response.state);
+        }
+        return response.json();
+    }).then(result => {
+      console.log(result);
+      window.location.reload(false);
+    }).catch(error => {
+      console.log(error.message)
+      switch(resStatusCode){
+        case 401:
+          this.setState({errorMessage: error.message});
+          break;
+      }
+    });
+  }
+
+  ratingsChanged(e, state) {
+    const newGames = state.games.map(row => {
+      var newItem = row;
+      if (row.game.id === parseInt(e.target.id)) {
+        newItem.rating.rating = e.target.value;
+      } 
+      return newItem;
+    });
+
+    this.setState({
+      games: newGames
+    });
+  }
+
+  saveRatings(e, state) {
+    const newGames = state.games.map(row => {
+      var newItem = row;
+      if (row.game.id === parseInt(e.target.id)) {
+        this.UpdateRating(newItem, newItem.rating.rating);
+      } 
+      return newItem;
+    });
+
+    this.setState({
+      games: newGames
+    });
+  }
+
   render() {
     /*show error message if it's not empty */
     if(this.state.errorMessage)
@@ -60,6 +122,8 @@ class AllGameListComponent extends React.Component {
             <th>LastPlayed</th>
             <th>Creator</th>
             <th>MyRating</th>
+            <th>Rating</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -70,7 +134,8 @@ class AllGameListComponent extends React.Component {
               <td>{row.game.timesPlayed}</td>
               <td>{StringFormatter.formatDate(row.game.lastPlayed)}</td>
               <td>{row.game.creator}</td>
-              <td>{row.rating.rating}</td>
+              <td> <input id={row.game.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>
+              <td> <input id={row.game.id} type='button' value='save' onClick={(e) => this.saveRatings(e, this.state)}/> </td>
             </tr>
           ))}
         </tbody>

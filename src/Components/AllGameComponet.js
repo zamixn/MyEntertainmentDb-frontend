@@ -1,5 +1,4 @@
 import React from 'react';
-import systemuser from '../services/systemuser';
 import * as Constants from '../Tools/Constants'
 import * as StringFormatter from '../Tools/StringFormatter'
 

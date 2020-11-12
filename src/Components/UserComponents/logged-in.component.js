@@ -1,11 +1,41 @@
 import React from 'react';
 import SystemUser from '../../services/systemuser'
+import * as Constants from '../../Tools/Constants'
 
 class LoggedIn extends React.Component {
 
     onLogoutClick(e) {
-        SystemUser.logout();
-        window.location.reload(false);
+        
+        let resStatusCode = 0;
+        fetch(Constants.LOGOUT_API_URL, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': SystemUser.getJWT()
+            },
+        }).then(response => {
+            resStatusCode = response.status;
+            if (!response.ok) {
+              throw new Error(response.state);
+            }
+            const json = response.json();
+            return json;
+        }).then(result => {
+            console.log(result);
+            SystemUser.logout();
+            window.location.reload(false);
+        }).catch(error => {
+            console.log(error.message);
+            switch(resStatusCode){
+                case 400:
+                    this.setState({errorMessage: 'Failled to logout'});
+                    break;
+                default:
+                    break;
+            }
+            SystemUser.logout();
+            window.location.reload(false);
+        });
     }
 
     render() {
