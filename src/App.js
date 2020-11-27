@@ -16,8 +16,28 @@ import * as AiIcons from "react-icons/ai";
 import * as Constants from './Tools/Constants'
 
 function App() {
-  if(SystemUser.isLoggedIn())
+  if(SystemUser.isLoggedIn()){    
+    // validate log in
+    const url = Constants.VALIDATE_LOGIN_URL;
+    let authHeader = {'Authorization': SystemUser.getJWT()};
+    fetch(url, {headers:authHeader})
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.status);
+        }
+        return response.json();
+      })
+      .then(result => {
+        console.log("User validated");
+      }).catch(error => {
+        console.log("User unautherized");
+        SystemUser.logout();
+        window.location.reload(false);
+      });
+    
+
     console.log("logged in as: " + SystemUser.getCurrentUser().id);
+  }
   const userLabel = SystemUser.isLoggedIn() ? 'Logged in as: ' + SystemUser.getCurrentUser().username : 'Log in';
   return (
     <div className='main'>

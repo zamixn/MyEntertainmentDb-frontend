@@ -22,6 +22,7 @@ export const CREATORS_LIST_API_URL = API_URL + CREATORS_LIST_URL;
 export const SYSTEMUSER_API_URL = API_URL + "/systemusers";
 export const REGISTER_API_URL = SYSTEMUSER_API_URL + "/register";
 export const LOGIN_API_URL = SYSTEMUSER_API_URL + "/login";
+export const VALIDATE_LOGIN_URL = SYSTEMUSER_API_URL + "/" + SystemUser.getUserId() + "/validatelogin";
 export const LOGOUT_API_URL = SYSTEMUSER_API_URL + "/" + SystemUser.getUserId() + "/logout";
 export const RATEENTRY_API_URL = SYSTEMUSER_API_URL + "/" + SystemUser.getUserId() + "/rateentry";
 export const MY_GAME_LIST_API_URL = SYSTEMUSER_API_URL + "/" + SystemUser.getUserId() + GAME_LIST_URL;
