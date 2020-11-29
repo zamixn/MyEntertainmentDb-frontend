@@ -75,11 +75,11 @@ class Login extends React.Component {
                                 <td> <button>Login</button> </td>
                             </tr>
                             {/* only show error message if it's not empty */}
-                            { this.state.errorMessage &&
+                            { this.state.errorMessage ?
                             <tr>
                                 <td> </td>
                                 <td className='erroMessage'> {this.state.errorMessage} </td>
-                            </tr>
+                            </tr> : null
                             }
                         </tbody>
                     </table>

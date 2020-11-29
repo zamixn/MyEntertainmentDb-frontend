@@ -31,3 +31,5 @@ export const MY_WATCHABLE_LIST_API_URL = SYSTEMUSER_API_URL + "/" + SystemUser.g
 export const AUTH_HEADER = {'Authorization': SystemUser.getJWT()};
 export const METHOD_POST = "POST";
 export const JSON_CONTENT_TYPE = {"Content-Type": "application/json"};
+
+export const BREAKPOINT_WIDTH = 1000;
