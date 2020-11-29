@@ -32,4 +32,7 @@ export const AUTH_HEADER = {'Authorization': SystemUser.getJWT()};
 export const METHOD_POST = "POST";
 export const JSON_CONTENT_TYPE = {"Content-Type": "application/json"};
 
-export const BREAKPOINT_WIDTH = 1000;
+
+
+export const BREAKPOINT_WIDTH = 1200;
+export const IMAGE_NOT_FOUND_URL = 'https://icon-library.com/images/no-icon/no-icon-5.jpg';

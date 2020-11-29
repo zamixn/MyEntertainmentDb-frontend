@@ -116,25 +116,26 @@ class MyGameListComponent extends React.Component {
       <table>
         <thead>
           <tr>
+            <th/>
             <th>Title</th>
-            <th>ReleaseDate</th>
-            <th>TimesPlayed</th>
-            <th>LastPlayed</th>
+            <th>Release</th>
+            <th># played</th>
+            <th>Last played</th>
             <th>Creator</th>
-            <th>MyRating</th>
             <th>Rating</th>
-            <th></th>
+            <th />
           </tr>
         </thead>
         <tbody>
           {this.state.games.map(row => (
             <tr key={row.id}>
+              <td> <img className='smallPosterImage' src={row.poster ?? Constants.IMAGE_NOT_FOUND_URL} /> </td>
               <td>{row.game.title}</td>
               <td>{StringFormatter.formatDate(row.game.releaseDate)}</td>
               <td>{row.game.timesPlayed}</td>
               <td>{StringFormatter.formatDate(row.game.lastPlayed)}</td>
               <td>{row.game.creator}</td>
-              <td> <input id={row.game.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>
+              <td> <input className='ratingInputField' id={row.game.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>
               <td> <input id={row.game.id} type='button' value='save' onClick={(e) => this.saveRatings(e, this.state)}/> </td>
             </tr>
           ))}

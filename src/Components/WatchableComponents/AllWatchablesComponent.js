@@ -30,20 +30,20 @@ class AllWatchablesListComponent extends React.Component {
       <table className="center">
         <thead>
           <tr>
+            <th/>
             <th>Title</th>
-            <th>ReleaseDate</th>
-            <th>Description</th>
-            <th>TimesSeen</th>
-            <th>LastSeen</th>
+            <th>Release</th>
+            <th># seen</th>
+            <th>Last seen</th>
             <th>Creator</th>
           </tr>
         </thead>
         <tbody>
           {this.state.watchables.map(row => (
             <tr key={row.id}>
+              <td> <img className='smallPosterImage' src={row.poster ?? Constants.IMAGE_NOT_FOUND_URL} /> </td>
               <td>{row.title}</td>
               <td>{StringFormatter.formatDate(row.releaseDate)}</td>
-              <td>{row.description}</td>
               <td>{row.timesSeen}</td>
               <td>{StringFormatter.formatDate(row.lastSeen)}</td>
               <td>{row.creator}</td>

@@ -39,3 +39,50 @@
 .erroMessage{
   color: red;
 }
+
+.smallPosterImage{
+  max-width: 100px;
+  max-height: 200px;
+}
+
+.ratingInputField{
+  max-width: 30px;
+}
+
+
+
+/* modify inpout fields to hide the arrows */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+/* modify input fields to center text */
+input { 
+  text-align: center; 
+}
+
+/* modify tables to only have horizontal lines, margins etc. */
+table {
+  border-collapse: collapse;
+}
+th {
+  border-left: 1px solid aliceblue;
+  border-right: 1px solid aliceblue;
+}
+tr {
+  border-top: 2px solid aliceblue;
+  border-bottom: 2px solid aliceblue;
+}
+th, td {
+  padding-right:10px;
+  padding-left:10px;
+}
+

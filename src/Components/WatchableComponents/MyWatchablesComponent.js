@@ -118,24 +118,26 @@ class MyWatchablesComponent extends React.Component {
       <table className="center">
         <thead>
           <tr>
+            <th/>
             <th>Title</th>
-            <th>ReleaseDate</th>
-            <th>TimesSeen</th>
-            <th>LastSeen</th>
+            <th>Release</th>
+            <th># seen</th>
+            <th>Last seen</th>
             <th>Creator</th>
             <th>Rating</th>
-            <th></th>
+            <th/>
           </tr>
         </thead>
         <tbody>
           {this.state.watchables.map(row => (
             <tr key={row.watchable.id}>
+              <td> <img className='smallPosterImage' src={row.poster ?? Constants.IMAGE_NOT_FOUND_URL} /> </td>
               <td>{row.watchable.title}</td>
               <td>{StringFormatter.formatDate(row.watchable.releaseDate)}</td>
               <td>{row.watchable.timesSeen}</td>
               <td>{StringFormatter.formatDate(row.watchable.lastSeen)}</td>
               <td>{row.watchable.creator}</td>
-              <td> <input id={row.watchable.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>
+              <td> <input className='ratingInputField' id={row.watchable.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>
               <td> <input id={row.watchable.id} type='button' value='save' onClick={(e) => this.saveRatings(e, this.state)}/> </td>
             </tr>
           ))}
