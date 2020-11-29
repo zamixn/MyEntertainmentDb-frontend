@@ -9,6 +9,7 @@ import MyWatchables from './pages/MyWatchables';
 import User from './pages/User';
 import RegisterPage from './pages/Register';
 import SystemUser from './services/systemuser';
+import Test from './Components/ViewportProvider';
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarFooter } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import * as GiIcons from 'react-icons/gi'
@@ -67,16 +68,16 @@ function App() {
           </ProSidebar>
         </div>
         <div className="body">
-          <Switch>
-            <Route path='/' exact component={User} />
-            <Route path={Constants.GAME_LIST_URL} component={Games} />
-            <Route path={Constants.WATCHABLE_LIST_URL} component={Watchables} />
-            <Route path={Constants.CREATORS_LIST_URL} component={Creators} />
-            <Route path={Constants.USER_URL} component={User} />
-            <Route path={Constants.REGISTER_URL} component={RegisterPage} />
-            {SystemUser.isLoggedIn() && <Route path={Constants.MY_GAME_LIST_URL} component={MyGames} />}
-            {SystemUser.isLoggedIn() && <Route path={Constants.MY_WATCHABLE_LIST_URL} component={MyWatchables} />}
-          </Switch>
+            <Switch>
+              <Route path='/' exact component={User} />
+              <Route path={Constants.GAME_LIST_URL} component={Games} />
+              <Route path={Constants.WATCHABLE_LIST_URL} component={Watchables} />
+              <Route path={Constants.CREATORS_LIST_URL} component={Creators} />
+              <Route path={Constants.USER_URL} component={User} />
+              <Route path={Constants.REGISTER_URL} component={RegisterPage} />
+              {SystemUser.isLoggedIn() && <Route path={Constants.MY_GAME_LIST_URL} component={MyGames} />}
+              {SystemUser.isLoggedIn() && <Route path={Constants.MY_WATCHABLE_LIST_URL} component={MyWatchables} />}
+            </Switch>            
         </div>
       </Router>
     </div>

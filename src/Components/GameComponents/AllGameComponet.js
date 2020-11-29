@@ -1,6 +1,6 @@
 import React from 'react';
-import * as Constants from '../Tools/Constants'
-import * as StringFormatter from '../Tools/StringFormatter'
+import * as Constants from '../../Tools/Constants'
+import * as StringFormatter from '../../Tools/StringFormatter'
 
 class AllGameListComponent extends React.Component {
   constructor(props) {

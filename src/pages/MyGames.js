@@ -1,5 +1,5 @@
 import React from 'react'
-import MyGameListComponent from '../Components/MyGameComponet';
+import MyGameListComponent from '../Components/GameComponents/MyGameComponet';
 
 function Games() {
     return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import AllWatchablesListComponent from '../Components/AllWatchablesComponent';
+import AllWatchablesListComponent from '../Components/WatchableComponents/AllWatchablesComponent';
 
 function Watchables() {
     return (

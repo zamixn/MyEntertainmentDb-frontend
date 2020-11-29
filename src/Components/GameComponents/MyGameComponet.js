@@ -1,9 +1,9 @@
 import React from 'react';
-import systemuser from '../services/systemuser';
-import * as Constants from '../Tools/Constants'
-import * as StringFormatter from '../Tools/StringFormatter'
+import systemuser from '../../services/systemuser';
+import * as Constants from '../../Tools/Constants'
+import * as StringFormatter from '../../Tools/StringFormatter'
 
-class AllGameListComponent extends React.Component {
+class MyGameListComponent extends React.Component {
   constructor(props) {
     super(props);
 
@@ -144,4 +144,4 @@ class AllGameListComponent extends React.Component {
   }
 }
 
-export default AllGameListComponent;
+export default MyGameListComponent;
