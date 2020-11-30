@@ -1,4 +1,6 @@
 import React from 'react';
+import { format } from 'date-fns';
+
 import systemuser from '../../services/systemuser';
 import * as Constants from '../../Tools/Constants'
 import * as StringFormatter from '../../Tools/StringFormatter'
@@ -40,12 +42,14 @@ class MyGameListComponent extends React.Component {
       });
   }
 
-  UpdateRating(entryRating, newVal){    
+  UploadChanges(entryRating, newRating, newTimesConsumed, newLastConsumed){    
     let e = entryRating.rating;
     let body = JSON.stringify({
-      "rating": newVal,
+      "rating": newRating,
       "entry_id": e.entry_id,
-      "user_id":  e.user_id
+      "user_id":  e.user_id,
+      "timesConsumed": newTimesConsumed,
+      "lastConsumed": newLastConsumed
     });
     let resStatusCode = 0;
     fetch(Constants.RATEENTRY_API_URL, {
@@ -80,7 +84,7 @@ class MyGameListComponent extends React.Component {
   ratingsChanged(e, state) {
     const newGames = state.games.map(row => {
       var newItem = row;
-      if (row.game.game.id === parseInt(e.target.id)) {
+      if (('rating_'+row.game.game.id) === e.target.id) {
         newItem.rating.rating = e.target.value;
       } 
       return newItem;
@@ -91,18 +95,52 @@ class MyGameListComponent extends React.Component {
     });
   }
 
-  saveRatings(e, state) {
-    const newGames = state.games.map(row => {
-      var newItem = row;
-      if (row.game.game.id === parseInt(e.target.id)) {
-        this.UpdateRating(newItem, newItem.rating.rating);
-      } 
-      return newItem;
-    });
+  timesChanged(e, state) {
+    if(e.target.validity.valid){
+      const newGames = state.games.map(row => {
+        var newItem = row;
+        if ('times_'+row.game.game.id === e.target.id) {
+          newItem.rating.timesConsumed = e.target.value;
+        } 
+        return newItem;
+      });
 
-    this.setState({
-      games: newGames
-    });
+      this.setState({
+        games: newGames
+      });
+    }
+  }
+
+  lastChanged(e, state) {
+    if(e.target.validity.valid){
+      const newGames = state.games.map(row => {
+        var newItem = row;
+        if ('last_'+row.game.game.id === e.target.id) {
+          newItem.rating.lastConsumed = e.target.value;
+        } 
+        return newItem;
+      });
+
+      this.setState({
+        games: newGames
+      });
+    }
+  }
+
+  saveChanges(e, state) {
+    if(e.target.validity.valid){
+      const newGames = state.games.map(row => {
+        var newItem = row;
+        if (row.game.game.id === parseInt(e.target.id)) {
+          this.UploadChanges(newItem, newItem.rating.rating, newItem.rating.timesConsumed, newItem.rating.lastConsumed);
+        } 
+        return newItem;
+      });
+
+      this.setState({
+        games: newGames
+      });
+    }
   }
 
   render() {
@@ -125,9 +163,9 @@ class MyGameListComponent extends React.Component {
             <th/>
             <th>Title</th>
             <th>Release</th>
+            <th>Creator</th>
             <th># played</th>
             <th>Last played</th>
-            <th>Creator</th>
             <th>Rating</th>
             <th />
           </tr>
@@ -137,12 +175,12 @@ class MyGameListComponent extends React.Component {
             <tr key={row.game.game.id}>
               <td> <img className='smallPosterImage' src={row.game.game.poster ? row.game.game.poster : Constants.IMAGE_NOT_FOUND_URL} alt='img'/> </td>
               <td><a className='link' href={Constants.GAME_URL + '/' + row.game.game.id}>{row.game.game.title}</a></td>
-              <td>{StringFormatter.formatDate(row.game.game.releaseDate)}</td>
-              <td>{row.game.game.timesPlayed}</td>
-              <td>{StringFormatter.formatDate(row.game.game.lastPlayed)}</td>
+              <td> {StringFormatter.formatDate(row.game.game.releaseDate)}</td>
               <td><a className='link' href={Constants.CREATOR_URL + '/' + row.game.creator.creator_id}>{row.game.creator.name}</a></td>
-              <td> <input className='ratingInputField' id={row.game.game.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>
-              <td> <input id={row.game.game.id} type='button' value='save' onClick={(e) => this.saveRatings(e, this.state)}/> </td>
+              <td> <input className='numberInputField' pattern="[0-9]*" id={'times_'+row.game.game.id} type='number' value={row.rating.timesConsumed} onChange={(e) => this.timesChanged(e, this.state)}/> </td>
+              <td> <input className='dateInputField' id={'last_'+row.game.game.id} type='date' value={format(new Date(row.rating.lastConsumed), 'yyyy-MM-dd')} onChange={(e) => this.lastChanged(e, this.state)}></input></td>
+              <td> <input className='numberInputField' id={'rating_'+row.game.game.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>
+              <td> <input id={row.game.game.id} type='button' value='save' onClick={(e) => this.saveChanges(e, this.state)}/> </td>
             </tr>
           ))}
         </tbody>

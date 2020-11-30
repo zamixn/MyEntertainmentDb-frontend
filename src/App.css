@@ -45,8 +45,12 @@
   max-height: 200px;
 }
 
-.ratingInputField{
+.numberInputField{
   max-width: 30px;
+}
+
+.dateInputField{
+  max-width: 125px;
 }
 
 .link{

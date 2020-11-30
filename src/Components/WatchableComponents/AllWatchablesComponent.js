@@ -33,8 +33,6 @@ class AllWatchablesListComponent extends React.Component {
             <th/>
             <th>Title</th>
             <th>Release</th>
-            <th># seen</th>
-            <th>Last seen</th>
             <th>Creator</th>
           </tr>
         </thead>
@@ -44,8 +42,6 @@ class AllWatchablesListComponent extends React.Component {
               <td> <img className='smallPosterImage' src={row.watchable.poster ? row.watchable.poster : Constants.IMAGE_NOT_FOUND_URL}  alt='img'/> </td>
               <td><a className='link' href={Constants.WATCHABLE_URL + '/' + row.watchable.id}>{row.watchable.title}</a></td>
               <td>{StringFormatter.formatDate(row.watchable.releaseDate)}</td>
-              <td>{row.watchable.timesSeen}</td>
-              <td>{StringFormatter.formatDate(row.watchable.lastSeen)}</td>
               <td><a className='link' href={Constants.CREATOR_URL + '/' + row.creator.creator_id}>{row.creator.name}</a></td>
             </tr>
           ))}

@@ -1,4 +1,6 @@
 import React from 'react'
+import { format } from 'date-fns';
+
 import systemuser from '../../services/systemuser'
 import * as Constants from '../../Tools/Constants'
 import * as StringFormatter from '../../Tools/StringFormatter'
@@ -27,7 +29,6 @@ class MyWatchablesComponent extends React.Component {
         return response.json();
       })
       .then(result => {
-        console.log(result);
         this.setState({ watchables: result });
       }).catch(error => {
         console.log(error.message)
@@ -42,12 +43,14 @@ class MyWatchablesComponent extends React.Component {
       });
   }
 
-  UpdateRating(entryRating, newVal){    
+  UploadChanges(entryRating, newRating, newTimesConsumed, newLastConsumed){    
     let e = entryRating.rating;
     let body = JSON.stringify({
-      "rating": newVal,
+      "rating": newRating,
       "entry_id": e.entry_id,
-      "user_id":  e.user_id
+      "user_id":  e.user_id,
+      "timesConsumed": newTimesConsumed,
+      "lastConsumed": newLastConsumed
     });
     let resStatusCode = 0;
     fetch(Constants.RATEENTRY_API_URL, {
@@ -64,7 +67,6 @@ class MyWatchablesComponent extends React.Component {
         }
         return response.json();
     }).then(result => {
-      console.log(result);
       window.location.reload(false);
     }).catch(error => {
       console.log(error.message)
@@ -82,7 +84,7 @@ class MyWatchablesComponent extends React.Component {
   ratingsChanged(e, state) {
     const newWatchables = state.watchables.map(row => {
       var newItem = row;
-      if (row.watchable.watchable.id === parseInt(e.target.id)) {
+      if (('rating_'+row.watchable.watchable.id) === e.target.id) {
         newItem.rating.rating = e.target.value;
       } 
       return newItem;
@@ -93,11 +95,43 @@ class MyWatchablesComponent extends React.Component {
     });
   }
 
-  saveRatings(e, state) {
+  timesChanged(e, state) {
+    if(e.target.validity.valid){
+      const newWatchables = state.watchables.map(row => {
+        var newItem = row;
+        if ('times_'+row.watchable.watchable.id === e.target.id) {
+          newItem.rating.timesConsumed = e.target.value;
+        } 
+        return newItem;
+      });
+
+      this.setState({
+        watchables: newWatchables
+      });
+    }
+  }
+
+  lastChanged(e, state) {
+    if(e.target.validity.valid){
+      const newWatchables = state.watchables.map(row => {
+        var newItem = row;
+        if ('last_'+row.watchable.watchable.id === e.target.id) {
+          newItem.rating.lastConsumed = e.target.value;
+        } 
+        return newItem;
+      });
+
+      this.setState({
+        watchables: newWatchables
+      });
+    }
+  }
+
+  saveChanges(e, state) {
     const newWatchables = state.watchables.map(row => {
       var newItem = row;
       if (row.watchable.watchable.id === parseInt(e.target.id)) {
-        this.UpdateRating(newItem, newItem.rating.rating);
+        this.UploadChanges(newItem, newItem.rating.rating, newItem.rating.timesConsumed, newItem.rating.lastConsumed);
       } 
       return newItem;
     });
@@ -127,9 +161,9 @@ class MyWatchablesComponent extends React.Component {
             <th/>
             <th>Title</th>
             <th>Release</th>
+            <th>Creator</th>
             <th># seen</th>
             <th>Last seen</th>
-            <th>Creator</th>
             <th>Rating</th>
             <th/>
           </tr>
@@ -140,11 +174,11 @@ class MyWatchablesComponent extends React.Component {
               <td> <img className='smallPosterImage' src={row.watchable.watchable.poster ? row.watchable.watchable.poster : Constants.IMAGE_NOT_FOUND_URL} alt='img'/> </td>
               <td><a className='link' href={Constants.WATCHABLE_URL + '/' + row.watchable.watchable.id}>{row.watchable.watchable.title}</a></td>
               <td>{StringFormatter.formatDate(row.watchable.watchable.releaseDate)}</td>
-              <td>{row.watchable.watchable.timesSeen}</td>
-              <td>{StringFormatter.formatDate(row.watchable.watchable.lastSeen)}</td>
               <td><a className='link' href={Constants.CREATOR_URL + '/' + row.watchable.creator.creator_id}>{row.watchable.creator.name}</a></td>
-              <td> <input className='ratingInputField' id={row.watchable.watchable.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>
-              <td> <input id={row.watchable.watchable.id} type='button' value='save' onClick={(e) => this.saveRatings(e, this.state)}/> </td>
+              <td> <input className='numberInputField' pattern="[0-9]*" id={'times_'+row.watchable.watchable.id} type='number' value={row.rating.timesConsumed} onChange={(e) => this.timesChanged(e, this.state)}/> </td>
+              <td> <input className='dateInputField' id={'last_'+row.watchable.watchable.id} type='date' value={format(new Date(row.rating.lastConsumed), 'yyyy-MM-dd')} onChange={(e) => this.lastChanged(e, this.state)}></input></td>
+              <td> <input className='numberInputField' id={'rating_'+row.watchable.watchable.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>
+              <td> <input id={row.watchable.watchable.id} type='button' value='save' onClick={(e) => this.saveChanges(e, this.state)}/> </td>
             </tr>
           ))}
         </tbody>

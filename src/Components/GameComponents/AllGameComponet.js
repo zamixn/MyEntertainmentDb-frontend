@@ -35,8 +35,6 @@ class AllGameListComponent extends React.Component {
             <th/>
             <th>Title</th>
             <th>Release</th>
-            <th># played</th>
-            <th>Last played</th>
             <th>Creator</th>
           </tr>
         </thead>
@@ -47,8 +45,6 @@ class AllGameListComponent extends React.Component {
               <td> <img className='smallPosterImage' src={row.game.poster ? row.game.poster : Constants.IMAGE_NOT_FOUND_URL}  alt='img'/> </td>
               <td><a className='link' href={Constants.GAME_URL + '/' + row.game.id}>{row.game.title}</a></td>
               <td>{StringFormatter.formatDate(row.game.releaseDate)}</td>
-              <td>{row.game.timesPlayed}</td>
-              <td>{StringFormatter.formatDate(row.game.lastPlayed)}</td>
               <td><a className='link' href={Constants.CREATOR_URL + '/' + row.creator.creator_id}>{row.creator.name}</a></td>
             </tr>
           ))}
