@@ -42,13 +42,14 @@ class AllGameListComponent extends React.Component {
         </thead>
         <tbody>
           {this.state.games.map(row => (
-            <tr key={row.id}>
-              <td> <img className='smallPosterImage' src={row.poster ?? Constants.IMAGE_NOT_FOUND_URL} /> </td>
-              <td>{row.title}</td>
-              <td>{StringFormatter.formatDate(row.releaseDate)}</td>
-              <td>{row.timesPlayed}</td>
-              <td>{StringFormatter.formatDate(row.lastPlayed)}</td>
-              <td>{row.creator}</td>
+            <tr key={row.game.id}>
+              {console.log(row.game.poster)}
+              <td> <img className='smallPosterImage' src={row.game.poster ? row.game.poster : Constants.IMAGE_NOT_FOUND_URL}  alt='img'/> </td>
+              <td><a className='link' href={Constants.GAME_URL + '/' + row.game.id}>{row.game.title}</a></td>
+              <td>{StringFormatter.formatDate(row.game.releaseDate)}</td>
+              <td>{row.game.timesPlayed}</td>
+              <td>{StringFormatter.formatDate(row.game.lastPlayed)}</td>
+              <td><a className='link' href={Constants.CREATOR_URL + '/' + row.creator.creator_id}>{row.creator.name}</a></td>
             </tr>
           ))}
         </tbody>

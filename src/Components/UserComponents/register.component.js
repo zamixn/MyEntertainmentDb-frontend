@@ -47,7 +47,7 @@ class Register extends React.Component {
             window.location.reload(false);
         }).catch(error => {
             console.log(error.message)
-            this.setState({errorMessage: 'Oops, failed to register, try using a different username and password'});
+            this.setState({errorMessage: 'Oops, failed to register with code ' + resStatusCode + ', try using a different username and password'});
         });
     }
 
@@ -74,11 +74,11 @@ class Register extends React.Component {
                                 <td> <button>Register</button> </td>
                             </tr> 
                             { /*show error message if it's not empty */}
-                            { this.state.errorMessage &&
+                            { this.state.errorMessage ?
                             <tr>
                                 <td> </td>
                                 <td className='erroMessage'> {this.state.errorMessage} </td>
-                            </tr>
+                            </tr> : null
                             }
                         </tbody>
                     </table>

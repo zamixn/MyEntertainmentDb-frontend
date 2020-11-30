@@ -9,15 +9,18 @@ export const REGISTER_URL = "/register"
 
 export const MY_GAME_LIST_URL = "/mygames";
 export const MY_WATCHABLE_LIST_URL = "/mywatchables";
-
+export const CREATOR_URL = "/creator";
+export const GAME_URL = "/game";
+export const WATCHABLE_URL = "/watchable";
 
 
 export const API_URL = 
-    "https://mbd-backend.herokuapp.com";
-    //"https://localhost:44325";
+    //"https://mbd-backend.herokuapp.com";
+    "https://localhost:44325";
 export const GAME_LIST_API_URL = API_URL + GAME_LIST_URL;
 export const WATCHABLE_LIST_API_URL = API_URL + WATCHABLE_LIST_URL;
 export const CREATORS_LIST_API_URL = API_URL + CREATORS_LIST_URL;
+
 
 export const SYSTEMUSER_API_URL = API_URL + "/systemusers";
 export const REGISTER_API_URL = SYSTEMUSER_API_URL + "/register";

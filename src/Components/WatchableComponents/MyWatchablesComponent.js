@@ -35,6 +35,9 @@ class MyWatchablesComponent extends React.Component {
           case 401:
             this.setState({errorMessage: 'Unautherized access'});
             break;
+          default:
+            console.log(error.message);
+            break;
         }
       });
   }
@@ -69,6 +72,9 @@ class MyWatchablesComponent extends React.Component {
         case 401:
           this.setState({errorMessage: error.message});
           break;
+        default:
+          console.log(error.message);
+          break;
       }
     });
   }
@@ -76,7 +82,7 @@ class MyWatchablesComponent extends React.Component {
   ratingsChanged(e, state) {
     const newWatchables = state.watchables.map(row => {
       var newItem = row;
-      if (row.watchable.id === parseInt(e.target.id)) {
+      if (row.watchable.watchable.id === parseInt(e.target.id)) {
         newItem.rating.rating = e.target.value;
       } 
       return newItem;
@@ -90,7 +96,7 @@ class MyWatchablesComponent extends React.Component {
   saveRatings(e, state) {
     const newWatchables = state.watchables.map(row => {
       var newItem = row;
-      if (row.watchable.id === parseInt(e.target.id)) {
+      if (row.watchable.watchable.id === parseInt(e.target.id)) {
         this.UpdateRating(newItem, newItem.rating.rating);
       } 
       return newItem;
@@ -130,15 +136,15 @@ class MyWatchablesComponent extends React.Component {
         </thead>
         <tbody>
           {this.state.watchables.map(row => (
-            <tr key={row.watchable.id}>
-              <td> <img className='smallPosterImage' src={row.poster ?? Constants.IMAGE_NOT_FOUND_URL} /> </td>
-              <td>{row.watchable.title}</td>
-              <td>{StringFormatter.formatDate(row.watchable.releaseDate)}</td>
-              <td>{row.watchable.timesSeen}</td>
-              <td>{StringFormatter.formatDate(row.watchable.lastSeen)}</td>
-              <td>{row.watchable.creator}</td>
-              <td> <input className='ratingInputField' id={row.watchable.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>
-              <td> <input id={row.watchable.id} type='button' value='save' onClick={(e) => this.saveRatings(e, this.state)}/> </td>
+            <tr key={row.watchable.watchable.id}>
+              <td> <img className='smallPosterImage' src={row.watchable.watchable.poster ? row.watchable.watchable.poster : Constants.IMAGE_NOT_FOUND_URL} alt='img'/> </td>
+              <td><a className='link' href={Constants.WATCHABLE_URL + '/' + row.watchable.watchable.id}>{row.watchable.watchable.title}</a></td>
+              <td>{StringFormatter.formatDate(row.watchable.watchable.releaseDate)}</td>
+              <td>{row.watchable.watchable.timesSeen}</td>
+              <td>{StringFormatter.formatDate(row.watchable.watchable.lastSeen)}</td>
+              <td><a className='link' href={Constants.CREATOR_URL + '/' + row.watchable.creator.creator_id}>{row.watchable.creator.name}</a></td>
+              <td> <input className='ratingInputField' id={row.watchable.watchable.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>
+              <td> <input id={row.watchable.watchable.id} type='button' value='save' onClick={(e) => this.saveRatings(e, this.state)}/> </td>
             </tr>
           ))}
         </tbody>

@@ -33,6 +33,9 @@ class MyGameListComponent extends React.Component {
           case 401:
             this.setState({errorMessage: 'Unautherized access'});
             break;
+          default:
+            console.log(error.message);
+            break;
         }
       });
   }
@@ -67,6 +70,9 @@ class MyGameListComponent extends React.Component {
         case 401:
           this.setState({errorMessage: error.message});
           break;
+        default:
+          console.log(error.message);
+          break;
       }
     });
   }
@@ -74,7 +80,7 @@ class MyGameListComponent extends React.Component {
   ratingsChanged(e, state) {
     const newGames = state.games.map(row => {
       var newItem = row;
-      if (row.game.id === parseInt(e.target.id)) {
+      if (row.game.game.id === parseInt(e.target.id)) {
         newItem.rating.rating = e.target.value;
       } 
       return newItem;
@@ -88,7 +94,7 @@ class MyGameListComponent extends React.Component {
   saveRatings(e, state) {
     const newGames = state.games.map(row => {
       var newItem = row;
-      if (row.game.id === parseInt(e.target.id)) {
+      if (row.game.game.id === parseInt(e.target.id)) {
         this.UpdateRating(newItem, newItem.rating.rating);
       } 
       return newItem;
@@ -128,15 +134,15 @@ class MyGameListComponent extends React.Component {
         </thead>
         <tbody>
           {this.state.games.map(row => (
-            <tr key={row.id}>
-              <td> <img className='smallPosterImage' src={row.poster ?? Constants.IMAGE_NOT_FOUND_URL} /> </td>
-              <td>{row.game.title}</td>
-              <td>{StringFormatter.formatDate(row.game.releaseDate)}</td>
-              <td>{row.game.timesPlayed}</td>
-              <td>{StringFormatter.formatDate(row.game.lastPlayed)}</td>
-              <td>{row.game.creator}</td>
-              <td> <input className='ratingInputField' id={row.game.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>
-              <td> <input id={row.game.id} type='button' value='save' onClick={(e) => this.saveRatings(e, this.state)}/> </td>
+            <tr key={row.game.game.id}>
+              <td> <img className='smallPosterImage' src={row.game.game.poster ? row.game.game.poster : Constants.IMAGE_NOT_FOUND_URL} alt='img'/> </td>
+              <td><a className='link' href={Constants.GAME_URL + '/' + row.game.game.id}>{row.game.game.title}</a></td>
+              <td>{StringFormatter.formatDate(row.game.game.releaseDate)}</td>
+              <td>{row.game.game.timesPlayed}</td>
+              <td>{StringFormatter.formatDate(row.game.game.lastPlayed)}</td>
+              <td><a className='link' href={Constants.CREATOR_URL + '/' + row.game.creator.creator_id}>{row.game.creator.name}</a></td>
+              <td> <input className='ratingInputField' id={row.game.game.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>
+              <td> <input id={row.game.game.id} type='button' value='save' onClick={(e) => this.saveRatings(e, this.state)}/> </td>
             </tr>
           ))}
         </tbody>

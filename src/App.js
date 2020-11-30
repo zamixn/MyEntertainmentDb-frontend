@@ -11,9 +11,7 @@ import RegisterPage from './pages/Register';
 import SystemUser from './services/systemuser';
 import 'react-pro-sidebar/dist/css/styles.css';
 import * as Constants from './Tools/Constants'
-
 import Sidebar from './Components/Sidebar/Sidebar'
-// import Test from './Components/ViewportProvider'
 
 function App() {
 
@@ -44,8 +42,9 @@ function App() {
 
     <div className='main'>
       <Router>
-        {/* <Test/> */}
-      <Sidebar />
+        
+        <Sidebar />
+        
         <div className="body">
             <Switch>
               <Route path='/' exact component={User} />
@@ -54,8 +53,8 @@ function App() {
               <Route path={Constants.CREATORS_LIST_URL} component={Creators} />
               <Route path={Constants.USER_URL} component={User} />
               <Route path={Constants.REGISTER_URL} component={RegisterPage} />
-              {SystemUser.isLoggedIn() && <Route path={Constants.MY_GAME_LIST_URL} component={MyGames} />}
-              {SystemUser.isLoggedIn() && <Route path={Constants.MY_WATCHABLE_LIST_URL} component={MyWatchables} />}
+              {SystemUser.isLoggedIn() ? <Route path={Constants.MY_GAME_LIST_URL} component={MyGames} /> : null}
+              {SystemUser.isLoggedIn() ? <Route path={Constants.MY_WATCHABLE_LIST_URL} component={MyWatchables} /> : null}
             </Switch>            
         </div>
       </Router>

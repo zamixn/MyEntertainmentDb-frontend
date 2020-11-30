@@ -40,13 +40,13 @@ class AllWatchablesListComponent extends React.Component {
         </thead>
         <tbody>
           {this.state.watchables.map(row => (
-            <tr key={row.id}>
-              <td> <img className='smallPosterImage' src={row.poster ?? Constants.IMAGE_NOT_FOUND_URL} /> </td>
-              <td>{row.title}</td>
-              <td>{StringFormatter.formatDate(row.releaseDate)}</td>
-              <td>{row.timesSeen}</td>
-              <td>{StringFormatter.formatDate(row.lastSeen)}</td>
-              <td>{row.creator}</td>
+            <tr key={row.watchable.id}>
+              <td> <img className='smallPosterImage' src={row.watchable.poster ? row.watchable.poster : Constants.IMAGE_NOT_FOUND_URL}  alt='img'/> </td>
+              <td><a className='link' href={Constants.WATCHABLE_URL + '/' + row.watchable.id}>{row.watchable.title}</a></td>
+              <td>{StringFormatter.formatDate(row.watchable.releaseDate)}</td>
+              <td>{row.watchable.timesSeen}</td>
+              <td>{StringFormatter.formatDate(row.watchable.lastSeen)}</td>
+              <td><a className='link' href={Constants.CREATOR_URL + '/' + row.creator.creator_id}>{row.creator.name}</a></td>
             </tr>
           ))}
         </tbody>
