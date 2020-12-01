@@ -5,6 +5,9 @@ import Games from './pages/Games';
 import Watchables from './pages/Watchables';
 import Creators from './pages/Creators';
 import MyGames from './pages/MyGames';
+import GameDetailsPage from './pages/Game';
+import WatchableDetailsPage from './pages/Watchable';
+import CreatoreDetailsPage from './pages/Creator';
 import MyWatchables from './pages/MyWatchables';
 import User from './pages/User';
 import RegisterPage from './pages/Register';
@@ -48,13 +51,16 @@ function App() {
         <div className="body">
             <Switch>
               <Route path='/' exact component={User} />
-              <Route path={Constants.GAME_LIST_URL} component={Games} />
-              <Route path={Constants.WATCHABLE_LIST_URL} component={Watchables} />
-              <Route path={Constants.CREATORS_LIST_URL} component={Creators} />
+              <Route path={Constants.GAMES_URL} component={Games} />
+              <Route path={Constants.WATCHABLES_URL} component={Watchables} />
+              <Route path={Constants.CREATORS_URL} component={Creators} />
               <Route path={Constants.USER_URL} component={User} />
               <Route path={Constants.REGISTER_URL} component={RegisterPage} />
               {SystemUser.isLoggedIn() ? <Route path={Constants.MY_GAME_LIST_URL} component={MyGames} /> : null}
               {SystemUser.isLoggedIn() ? <Route path={Constants.MY_WATCHABLE_LIST_URL} component={MyWatchables} /> : null}
+              <Route exact path={Constants.GAME_URL + '/:id'} render={props => <GameDetailsPage id={props.match.params.id} />} />
+              <Route exact path={Constants.WATCHABLE_URL + '/:id'} render={props => <WatchableDetailsPage id={props.match.params.id} />} />
+              <Route exact path={Constants.CREATOR_URL + '/:id'} render={props => <CreatoreDetailsPage id={props.match.params.id} />} />
             </Switch>            
         </div>
       </Router>

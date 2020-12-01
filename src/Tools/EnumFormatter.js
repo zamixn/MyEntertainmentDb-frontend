@@ -7,6 +7,6 @@ export function formatCreatorType(type){
         case 3:
             return 'Director';
         default:
-            return 'undefined creator type!!';
+            return 'Creator';
     }
 }

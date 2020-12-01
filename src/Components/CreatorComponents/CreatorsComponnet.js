@@ -1,6 +1,6 @@
 import React from 'react';
-import * as Constants from '../Tools/Constants'
-import * as EnumFormatter from '../Tools/EnumFormatter'
+import * as Constants from '../../Tools/Constants'
+import * as EnumFormatter from '../../Tools/EnumFormatter'
 
 class CreatorsListComponent extends React.Component {
   constructor(props) {
@@ -26,10 +26,12 @@ class CreatorsListComponent extends React.Component {
   }
 
   render() {
+    let index = 1;
     return (
       <table>
         <thead>
           <tr>
+            <th>#</th>
             <th>Name</th>
             <th>Type</th>
           </tr>
@@ -37,6 +39,7 @@ class CreatorsListComponent extends React.Component {
         <tbody>
           {this.state.creators.map(creator => (
             <tr key={creator.creator_id}>
+              <td>{index++}</td>
               <td><a className='link' href={Constants.CREATOR_URL + '/' + creator.creator_id}>{creator.name}</a></td>
               <td>{EnumFormatter.formatCreatorType(creator.type)}</td>
             </tr>

@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import systemuser from '../../services/systemuser';
 import * as Constants from '../../Tools/Constants'
 import * as StringFormatter from '../../Tools/StringFormatter'
+import { Link } from 'react-router-dom';
 
 class MyGameListComponent extends React.Component {
   constructor(props) {
@@ -155,11 +156,14 @@ class MyGameListComponent extends React.Component {
       );
     }
 
+    let index = 1;
+
     /* else */
     return (
       <table>
         <thead>
           <tr>
+            <th>#</th>
             <th/>
             <th>Title</th>
             <th>Release</th>
@@ -173,10 +177,14 @@ class MyGameListComponent extends React.Component {
         <tbody>
           {this.state.games.map(row => (
             <tr key={row.game.game.id}>
+              <td>{index++}</td>
               <td> <img className='smallPosterImage' src={row.game.game.poster ? row.game.game.poster : Constants.IMAGE_NOT_FOUND_URL} alt='img'/> </td>
-              <td><a className='link' href={Constants.GAME_URL + '/' + row.game.game.id}>{row.game.game.title}</a></td>
+              <td><Link className='link' to={Constants.getGameURL(row.game.game.id)}>{row.game.game.title}</Link></td>
               <td> {StringFormatter.formatDate(row.game.game.releaseDate)}</td>
-              <td><a className='link' href={Constants.CREATOR_URL + '/' + row.game.creator.creator_id}>{row.game.creator.name}</a></td>
+              { row.game.creator.creator_id != -1 ?
+              <td><Link className='link' to={Constants.getCreatorURL(row.game.creator.creator_id)}>{row.game.creator.name}</Link></td> :
+              <td><a>-</a></td>
+              }
               <td> <input className='numberInputField' pattern="[0-9]*" id={'times_'+row.game.game.id} type='number' value={row.rating.timesConsumed} onChange={(e) => this.timesChanged(e, this.state)}/> </td>
               <td> <input className='dateInputField' id={'last_'+row.game.game.id} type='date' value={format(new Date(row.rating.lastConsumed), 'yyyy-MM-dd')} onChange={(e) => this.lastChanged(e, this.state)}></input></td>
               <td> <input className='numberInputField' id={'rating_'+row.game.game.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>

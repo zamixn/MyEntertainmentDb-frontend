@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import systemuser from '../../services/systemuser'
 import * as Constants from '../../Tools/Constants'
 import * as StringFormatter from '../../Tools/StringFormatter'
+import { Link } from 'react-router-dom'
 
 class MyWatchablesComponent extends React.Component {
   constructor(props) {
@@ -153,11 +154,14 @@ class MyWatchablesComponent extends React.Component {
       );
     }
 
+    let index = 1;
+
     /* else */
     return (
       <table className="center">
         <thead>
           <tr>
+            <th>#</th>
             <th/>
             <th>Title</th>
             <th>Release</th>
@@ -171,10 +175,14 @@ class MyWatchablesComponent extends React.Component {
         <tbody>
           {this.state.watchables.map(row => (
             <tr key={row.watchable.watchable.id}>
+              <td>{index++}</td>
               <td> <img className='smallPosterImage' src={row.watchable.watchable.poster ? row.watchable.watchable.poster : Constants.IMAGE_NOT_FOUND_URL} alt='img'/> </td>
               <td><a className='link' href={Constants.WATCHABLE_URL + '/' + row.watchable.watchable.id}>{row.watchable.watchable.title}</a></td>
               <td>{StringFormatter.formatDate(row.watchable.watchable.releaseDate)}</td>
-              <td><a className='link' href={Constants.CREATOR_URL + '/' + row.watchable.creator.creator_id}>{row.watchable.creator.name}</a></td>
+              {row.watchable.creator.creator_id != -1 ? 
+              <td><Link className='link' to={Constants.getCreatorURL(row.watchable.creator.creator_id)}>{row.watchable.creator.name}</Link></td> :
+              <td><a>-</a></td>
+              }
               <td> <input className='numberInputField' pattern="[0-9]*" id={'times_'+row.watchable.watchable.id} type='number' value={row.rating.timesConsumed} onChange={(e) => this.timesChanged(e, this.state)}/> </td>
               <td> <input className='dateInputField' id={'last_'+row.watchable.watchable.id} type='date' value={format(new Date(row.rating.lastConsumed), 'yyyy-MM-dd')} onChange={(e) => this.lastChanged(e, this.state)}></input></td>
               <td> <input className='numberInputField' id={'rating_'+row.watchable.watchable.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>

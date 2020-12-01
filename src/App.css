@@ -45,6 +45,11 @@
   max-height: 200px;
 }
 
+.largePosterImage{
+  max-width: 300px;
+  max-height: 900px;
+}
+
 .numberInputField{
   max-width: 30px;
 }
@@ -60,6 +65,9 @@
   color:rgba(240, 248, 255, 0.479)
 }
 
+.no-border{
+  border: transparent;
+}
 
 /* modify inpout fields to hide the arrows */
 /* Chrome, Safari, Edge, Opera */

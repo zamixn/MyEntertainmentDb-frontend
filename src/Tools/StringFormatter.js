@@ -1,5 +1,6 @@
+
+import { format } from 'date-fns';
+
 export function formatDate(string){
-    var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-    // 'en-GB' is day/month/year
-    return new Date(string).toLocaleDateString(['en-GB'],options);
+    return format(new Date(string), 'yyyy-MM-dd');
 }

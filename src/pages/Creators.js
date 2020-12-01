@@ -1,5 +1,5 @@
 import React from 'react'
-import CreatorsComponent from '../Components/CreatorsComponnet';
+import CreatorsComponent from '../Components/CreatorComponents/CreatorsComponnet';
 
 function Creators() {
     return (
