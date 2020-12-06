@@ -47,10 +47,7 @@ class GameDetailsComponent extends React.Component {
     /*show error message if it's not empty */
     if (this.state.errorMessage) {
       return (
-        <tr>
-          <td> </td>
-          <td className='erroMessage'> {this.state.errorMessage} </td>
-        </tr>
+        <h1 className='erroMessage'> {this.state.errorMessage} </h1>
       );
     }
 

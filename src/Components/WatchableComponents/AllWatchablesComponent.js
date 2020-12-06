@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Constants from '../../Tools/Constants'
 import * as StringFormatter from '../../Tools/StringFormatter'
+import * as EnumFormatter from '../../Tools/EnumFormatter'
 import { Link } from 'react-router-dom'
 
 class AllWatchablesListComponent extends React.Component {
@@ -35,6 +36,7 @@ class AllWatchablesListComponent extends React.Component {
             <th>#</th>
             <th/>
             <th>Title</th>
+            <th>Type</th>
             <th>Release</th>
             <th>Creator</th>
           </tr>
@@ -43,8 +45,9 @@ class AllWatchablesListComponent extends React.Component {
           {this.state.watchables.map(row => (
             <tr key={row.watchable.id}>              
               <td>{index++}</td>
-              <td> <img className='smallPosterImage' src={row.watchable.poster ? row.watchable.poster : Constants.IMAGE_NOT_FOUND_URL}  alt='img'/> </td>
+              <td> <img className='smallPosterImage' src={row.watchable.poster ? row.watchable.poster : Constants.IMAGE_NOT_FOUND_URL}  alt='img'/> </td>  
               <td><a className='link' href={Constants.WATCHABLE_URL + '/' + row.watchable.id}>{row.watchable.title}</a></td>
+              <td>{EnumFormatter.formatWatchableType(row.watchable.type)}</td>
               <td>{StringFormatter.formatDate(row.watchable.releaseDate)}</td>              
               {row.creator.creator_id != -1 ? 
               <td><Link className='link' to={Constants.getCreatorURL(row.creator.creator_id)}>{row.creator.name}</Link></td> :

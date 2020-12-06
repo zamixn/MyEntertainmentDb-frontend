@@ -12,6 +12,8 @@ export const MY_WATCHABLE_LIST_URL = "/mywatchables";
 export const CREATOR_URL = "/creator";
 export const GAME_URL = "/game";
 export const WATCHABLE_URL = "/watchable";
+export const GAME_CREATE_URL = "/creategame";
+export const WATCHABLE_CREATE_URL = "/createwatchable";
 
 export function getGameURL(id){
     return GAME_URL + '/' + id;
@@ -26,8 +28,8 @@ export function getCreatorURL(id){
 
 
 export const API_URL = 
-    //"https://mbd-backend.herokuapp.com";
-    "https://localhost:44325";
+    "https://mbd-backend.herokuapp.com";
+    //"https://localhost:44325";
 export const GAME_LIST_API_URL = API_URL + GAMES_URL;
 export const WATCHABLE_LIST_API_URL = API_URL + WATCHABLES_URL;
 export const CREATORS_LIST_API_URL = API_URL + CREATORS_URL;

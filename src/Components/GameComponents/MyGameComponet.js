@@ -149,10 +149,7 @@ class MyGameListComponent extends React.Component {
     if(this.state.errorMessage)
     {
       return (
-        <tr>
-            <td> </td>
-            <td className='erroMessage'> {this.state.errorMessage} </td>
-        </tr>
+        <h1 className='erroMessage'> {this.state.errorMessage} </h1>
       );
     }
 

@@ -32,6 +32,13 @@ class SystemUser {
         return "user" in localStorage
     }
 
+    IsAdmin()
+    {
+        if(!this.isLoggedIn())
+            return false
+        return this.getCurrentUser().role == 1
+    }
+
     getJWT()
     {
         if(this.isLoggedIn())

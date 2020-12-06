@@ -24,15 +24,17 @@ class SidebarFull extends React.Component {
                 <Menu iconShape="circle">
                     <MenuItem icon={<AiIcons.AiFillHome />}>Home <Link to="/" /> </MenuItem>
                     <SubMenu title="Games" icon={<GiIcons.GiGamepad />}>
-                    <MenuItem>Games<Link to={Constants.GAMES_URL} /></MenuItem>                
-                    {SystemUser.isLoggedIn() && <MenuItem>My Games<Link to={Constants.MY_GAME_LIST_URL} /></MenuItem>}
+                        <MenuItem>Games<Link to={Constants.GAMES_URL} /></MenuItem>                
+                        {SystemUser.isLoggedIn() && <MenuItem>My Games<Link to={Constants.MY_GAME_LIST_URL} /></MenuItem>}
+                        {SystemUser.IsAdmin() && <MenuItem>Create<Link to={Constants.GAME_CREATE_URL} /></MenuItem>}
                     </SubMenu>
                     <SubMenu title="Watchables" icon={<RiIcons.RiMovieFill />}>
-                    <MenuItem>Watchables<Link to={Constants.WATCHABLES_URL} /></MenuItem>
-                    {SystemUser.isLoggedIn() && <MenuItem>My Watchables<Link to={Constants.MY_WATCHABLE_LIST_URL} /></MenuItem>}
+                        <MenuItem>Watchables<Link to={Constants.WATCHABLES_URL} /></MenuItem>
+                        {SystemUser.isLoggedIn() && <MenuItem>My Watchables<Link to={Constants.MY_WATCHABLE_LIST_URL} /></MenuItem>}
+                        {SystemUser.IsAdmin() && <MenuItem>Create<Link to={Constants.WATCHABLE_CREATE_URL} /></MenuItem>}
                     </SubMenu>
                     <SubMenu title="Creators" icon={<HiIcons.HiUsers />}>
-                    <MenuItem>Creators<Link to={Constants.CREATORS_URL} /></MenuItem>
+                        <MenuItem>Creators<Link to={Constants.CREATORS_URL} /></MenuItem>
                     </SubMenu>
                 </Menu>
                 <SidebarFooter>

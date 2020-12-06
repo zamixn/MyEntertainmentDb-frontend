@@ -5,6 +5,7 @@ import systemuser from '../../services/systemuser'
 import * as Constants from '../../Tools/Constants'
 import * as StringFormatter from '../../Tools/StringFormatter'
 import { Link } from 'react-router-dom'
+import * as EnumFormatter from '../../Tools/EnumFormatter'
 
 class MyWatchablesComponent extends React.Component {
   constructor(props) {
@@ -147,10 +148,7 @@ class MyWatchablesComponent extends React.Component {
     if(this.state.errorMessage)
     {
       return (
-        <tr>
-            <td> </td>
-            <td className='erroMessage'> {this.state.errorMessage} </td>
-        </tr>
+        <h1 className='erroMessage'> {this.state.errorMessage} </h1>
       );
     }
 
@@ -164,6 +162,7 @@ class MyWatchablesComponent extends React.Component {
             <th>#</th>
             <th/>
             <th>Title</th>
+            <th>Type</th>
             <th>Release</th>
             <th>Creator</th>
             <th># seen</th>
@@ -177,7 +176,8 @@ class MyWatchablesComponent extends React.Component {
             <tr key={row.watchable.watchable.id}>
               <td>{index++}</td>
               <td> <img className='smallPosterImage' src={row.watchable.watchable.poster ? row.watchable.watchable.poster : Constants.IMAGE_NOT_FOUND_URL} alt='img'/> </td>
-              <td><a className='link' href={Constants.WATCHABLE_URL + '/' + row.watchable.watchable.id}>{row.watchable.watchable.title}</a></td>
+              <td><a className='link' href={Constants.WATCHABLE_URL + '/' + row.watchable.watchable.id}>{row.watchable.watchable.title}</a></td> 
+              <td>{EnumFormatter.formatWatchableType(row.watchable.watchable.type)}</td>
               <td>{StringFormatter.formatDate(row.watchable.watchable.releaseDate)}</td>
               {row.watchable.creator.creator_id != -1 ? 
               <td><Link className='link' to={Constants.getCreatorURL(row.watchable.creator.creator_id)}>{row.watchable.creator.name}</Link></td> :

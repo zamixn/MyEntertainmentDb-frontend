@@ -9,6 +9,8 @@ import GameDetailsPage from './pages/Game';
 import WatchableDetailsPage from './pages/Watchable';
 import CreatoreDetailsPage from './pages/Creator';
 import MyWatchables from './pages/MyWatchables';
+import CreateGame from './pages/CreateGame';
+import CreateWatchable from './pages/CreateWatchable';
 import User from './pages/User';
 import RegisterPage from './pages/Register';
 import SystemUser from './services/systemuser';
@@ -61,6 +63,8 @@ function App() {
               <Route exact path={Constants.GAME_URL + '/:id'} render={props => <GameDetailsPage id={props.match.params.id} />} />
               <Route exact path={Constants.WATCHABLE_URL + '/:id'} render={props => <WatchableDetailsPage id={props.match.params.id} />} />
               <Route exact path={Constants.CREATOR_URL + '/:id'} render={props => <CreatoreDetailsPage id={props.match.params.id} />} />
+              {SystemUser.IsAdmin() ? <Route path={Constants.GAME_CREATE_URL} component={CreateGame} /> : null}
+              {SystemUser.IsAdmin() ? <Route path={Constants.WATCHABLE_CREATE_URL} component={CreateWatchable} /> : null}
             </Switch>            
         </div>
       </Router>
