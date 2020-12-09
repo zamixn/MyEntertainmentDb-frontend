@@ -44,6 +44,51 @@ class WatchableDetailsComponent extends React.Component {
       });
   }
 
+  RateWatchable() {
+    let body = JSON.stringify({
+      "rating": 0,
+      "entry_id": this.props.id,
+      "user_id": systemuser.getUserId(),
+      "timesConsumed": 0,
+      "lastConsumed": StringFormatter.getCurrentDate('-')
+    });
+    console.log(body);
+    let resStatusCode = 0;
+    fetch(Constants.RATEENTRY_API_URL, {
+      method: Constants.METHOD_POST,
+      headers: {
+        ...Constants.AUTH_HEADER,
+        ...Constants.JSON_CONTENT_TYPE
+      },
+      body: body
+    }).then(response => {
+      resStatusCode = response.status;
+      if (!response.ok) {
+        throw new Error(response.state);
+      }
+      return response.json();
+    }).then(result => {
+      console.log(result);
+      window.location.reload(false);
+    }).catch(error => {
+      console.log(error.message)
+      switch (resStatusCode) {
+        case 401:
+          this.setState({ errorMessage: error.message });
+          break;
+        default:
+          console.log(error.message);
+          break;
+      }
+    });
+  }
+
+  rateWatchable(e, state) {
+    if (e.target.validity.valid) {        
+      this.RateWatchable();
+    }
+  }
+
   render() {
     /*show error message if it's not empty */
     if (this.state.errorMessage) {
@@ -84,6 +129,17 @@ class WatchableDetailsComponent extends React.Component {
                 <td><Link className='link' to={Constants.getCreatorURL(creator.creator_id)}>{creator.name}</Link></td> :
                 <td><a>-</a></td>
                 }
+              </tr>
+              <tr  className='no-border'>                
+                <td><br/></td>         
+              </tr>
+              <tr  className='no-border'>                
+                <td></td>         
+                <td></td>         
+                <td></td>        
+                <td></td>       
+                <td></td>
+                <td> <input id={watchable.id} type='button' value='rate' onClick={(e) => this.rateWatchable(e, this.state)}/> </td>
               </tr>
             </tbody>
           </table>
