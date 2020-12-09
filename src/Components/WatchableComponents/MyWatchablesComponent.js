@@ -183,6 +183,7 @@ class MyWatchablesComponent extends React.Component {
               <td><Link className='link' to={Constants.getCreatorURL(row.watchable.creator.creator_id)}>{row.watchable.creator.name}</Link></td> :
               <td><a>-</a></td>
               }
+              {console.log(row.watchable.watchable.id +' ' +  row.watchable.watchable.title + ' ' + row.rating.timesConsumed)}
               <td> <input className='numberInputField' pattern="[0-9]*" id={'times_'+row.watchable.watchable.id} type='number' value={row.rating.timesConsumed} onChange={(e) => this.timesChanged(e, this.state)}/> </td>
               <td> <input className='dateInputField' id={'last_'+row.watchable.watchable.id} type='date' value={format(new Date(row.rating.lastConsumed), 'yyyy-MM-dd')} onChange={(e) => this.lastChanged(e, this.state)}></input></td>
               <td> <input className='numberInputField' id={'rating_'+row.watchable.watchable.id} type='number' value={row.rating.rating} onChange={(e) => this.ratingsChanged(e, this.state)}/> </td>

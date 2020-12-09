@@ -31,7 +31,7 @@
   background-color: #282c34;
   color: aliceblue;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   text-align: center;
   align-items: center;
 }

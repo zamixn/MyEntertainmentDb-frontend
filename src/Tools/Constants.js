@@ -28,8 +28,8 @@ export function getCreatorURL(id){
 
 
 export const API_URL = 
-    "https://mbd-backend.herokuapp.com";
-    //"https://localhost:44325";
+    //"https://mbd-backend.herokuapp.com";
+    "https://localhost:44325";
 export const GAME_LIST_API_URL = API_URL + GAMES_URL;
 export const WATCHABLE_LIST_API_URL = API_URL + WATCHABLES_URL;
 export const CREATORS_LIST_API_URL = API_URL + CREATORS_URL;
@@ -53,6 +53,9 @@ export const RATEENTRY_API_URL = SYSTEMUSER_API_URL + "/" + SystemUser.getUserId
 export const MY_GAME_LIST_API_URL = SYSTEMUSER_API_URL + "/" + SystemUser.getUserId() + GAMES_URL;
 export const MY_WATCHABLE_LIST_API_URL = SYSTEMUSER_API_URL + "/" + SystemUser.getUserId() + WATCHABLES_URL;
 
+export function getHasRatedEntryAPI_URL(id){
+    return SYSTEMUSER_API_URL + '/' +  SystemUser.getUserId() +  '/hasrated/' + id;
+}
 export function getRatedGameAPI_URL(id){
     return SYSTEMUSER_API_URL + '/' +  SystemUser.getUserId() +  GAMES_URL + '/' + id;
 }
