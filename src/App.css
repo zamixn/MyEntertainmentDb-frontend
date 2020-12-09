@@ -1,5 +1,5 @@
 .body{ 
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   margin-left: 80px;
   display: flex;
 }
@@ -38,6 +38,12 @@
 
 .erroMessage{
   color: red;
+}
+
+
+.homePageLogo{
+  max-width: 800px;
+  max-height: 300px;
 }
 
 .smallPosterImage{

@@ -12,6 +12,7 @@ import MyWatchables from './pages/MyWatchables';
 import CreateGame from './pages/CreateGame';
 import CreateWatchable from './pages/CreateWatchable';
 import User from './pages/User';
+import Home from './pages/Home';
 import RegisterPage from './pages/Register';
 import SystemUser from './services/systemuser';
 import 'react-pro-sidebar/dist/css/styles.css';
@@ -52,7 +53,7 @@ function App() {
         
         <div className="body">
             <Switch>
-              <Route path='/' exact component={User} />
+              <Route path='/' exact component={Home} />
               <Route path={Constants.GAMES_URL} component={Games} />
               <Route path={Constants.WATCHABLES_URL} component={Watchables} />
               <Route path={Constants.CREATORS_URL} component={Creators} />
