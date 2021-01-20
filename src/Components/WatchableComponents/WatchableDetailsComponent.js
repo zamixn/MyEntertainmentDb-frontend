@@ -112,7 +112,7 @@ class WatchableDetailsComponent extends React.Component {
                 <td>{watchable.title}</td>
               </tr>
               <tr className='no-border'>
-                <td>{watchable.description}</td>
+                <td className='description'>{watchable.description}</td>
               </tr>
             </tbody>
           </table>
@@ -139,7 +139,7 @@ class WatchableDetailsComponent extends React.Component {
                 <td></td>        
                 <td></td>       
                 <td></td>
-                <td> <input id={watchable.id} type='button' value='rate' onClick={(e) => this.rateWatchable(e, this.state)}/> </td>
+                { systemuser.isLoggedIn() ? <td> <input id={watchable.id} type='button' value='rate' onClick={(e) => this.rateWatchable(e, this.state)}/> </td> : null }
               </tr>
             </tbody>
           </table>

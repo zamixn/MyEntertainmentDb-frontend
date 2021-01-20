@@ -138,7 +138,7 @@ class RatedWatchableDetailsComponent extends React.Component {
                 <td>{watchable.title}</td>
               </tr>
               <tr className='no-border'>
-                <td>{watchable.description}</td>
+                <td className='description'>{watchable.description}</td>
               </tr>
             </tbody>
           </table>

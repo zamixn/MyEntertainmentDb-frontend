@@ -138,7 +138,7 @@ class RatedGameDetailsComponent extends React.Component {
                 <td>{game.title}</td>
               </tr>
               <tr className='no-border'>
-                <td>{game.description}</td>
+                <td className='description'>{game.description}</td>
               </tr>
             </tbody>
           </table>

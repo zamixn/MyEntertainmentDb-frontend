@@ -28,8 +28,8 @@ export function getCreatorURL(id){
 
 
 export const API_URL = 
-    //"https://mbd-backend.herokuapp.com";
-    "https://localhost:44325";
+    "https://mbd-backend.herokuapp.com";
+    //"https://localhost:44325";
 export const GAME_LIST_API_URL = API_URL + GAMES_URL;
 export const WATCHABLE_LIST_API_URL = API_URL + WATCHABLES_URL;
 export const CREATORS_LIST_API_URL = API_URL + CREATORS_URL;

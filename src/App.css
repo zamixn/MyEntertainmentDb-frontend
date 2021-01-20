@@ -64,6 +64,10 @@
   max-width: 125px;
 }
 
+.description{
+  max-width: 500px;
+}
+
 .link{
   color:rgb(240, 248, 255)
 }

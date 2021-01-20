@@ -108,10 +108,10 @@ class GameDetailsComponent extends React.Component {
             <tbody>
               <tr className='no-border'>
                 <td rowSpan='2'> <img className='largePosterImage' src={game.poster ? game.poster : Constants.IMAGE_NOT_FOUND_URL} alt='img' /> </td>
-                <td>{game.title}</td>
+                <td >{game.title}</td>
               </tr>
               <tr className='no-border'>
-                <td>{game.description}</td>
+                <td className='description'>{game.description}</td>
               </tr>
             </tbody>
           </table>
@@ -138,7 +138,7 @@ class GameDetailsComponent extends React.Component {
                 <td></td>        
                 <td></td>       
                 <td></td>
-                <td> <input id={game.id} type='button' value='rate' onClick={(e) => this.rateGame(e, this.state)}/> </td>
+                { systemuser.isLoggedIn() ? <td> <input id={game.id} type='button' value='rate' onClick={(e) => this.rateGame(e, this.state)}/> </td> : null }
               </tr>
             </tbody>
           </table>

@@ -76,7 +76,7 @@ class CreatorComponent extends React.Component {
                 <td>Info:</td>
               </tr>
               <tr className='no-border'>
-                <td>{creator.info}</td>
+                <td className='creatorInfo'><a >{creator.info}</a></td>
               </tr>
             </tbody>
           </table>
